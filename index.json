@@ -1,22 +1,5 @@
 [
   {
-    "name": "Tachiyomi: CopyManga",
-    "pkg": "eu.kanade.tachiyomi.extension.zh.copymanga",
-    "apk": "tachiyomi-zh.copymanga-v1.4.79.apk",
-    "lang": "zh",
-    "code": 79,
-    "version": "1.4.79",
-    "nsfw": 1,
-    "sources": [
-      {
-        "id": "6696312508930833206",
-        "lang": "zh",
-        "name": "拷贝漫画",
-        "baseUrl": "https://www.mangacopy.com"
-      }
-    ]
-  },
-  {
     "name": "Tachiyomi: VomicMHPlus",
     "pkg": "eu.kanade.tachiyomi.extension.zh.vomicmh",
     "apk": "tachiyomi-zh.vomicmh-v1.4.2.apk",
