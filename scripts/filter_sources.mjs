@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 过滤漫画源索引，移除不可访问的源
+ * 过滤漫画源索引，移除 18+ 扩展和不可访问的源
  * 由 GitHub Actions 调用，输出过滤后的 index.min.json 和 index.json
  */
 
@@ -46,10 +46,19 @@ async function main() {
   const extensions = JSON.parse(readFileSync(inputFile, "utf-8"));
   console.log(`共 ${extensions.length} 个扩展\n`);
 
+  // 过滤 18+ 扩展 (nsfw > 0)
+  const nsfwRemoved = extensions.filter(e => (e.nsfw || 0) > 0);
+  if (nsfwRemoved.length > 0) {
+    console.log(`移除 ${nsfwRemoved.length} 个 18+ 扩展:`);
+    nsfwRemoved.forEach(e => console.log(`  - ${e.name} (nsfw=${e.nsfw})`));
+  }
+  const sfwExtensions = extensions.filter(e => (e.nsfw || 0) === 0);
+  console.log(`剩余 ${sfwExtensions.length} 个扩展，开始检测可用性...\n`);
+
   // 收集所有 URL
   const checks = [];
-  for (let i = 0; i < extensions.length; i++) {
-    const ext = extensions[i];
+  for (let i = 0; i < sfwExtensions.length; i++) {
+    const ext = sfwExtensions[i];
     for (let j = 0; j < (ext.sources || []).length; j++) {
       const src = ext.sources[j];
       if (src.baseUrl) {
@@ -74,12 +83,12 @@ async function main() {
     }
   }
 
-  // 过滤
+  // 过滤不可访问的源
   const available = [];
   let removedCount = 0;
 
-  for (let i = 0; i < extensions.length; i++) {
-    const ext = extensions[i];
+  for (let i = 0; i < sfwExtensions.length; i++) {
+    const ext = sfwExtensions[i];
     const newSources = [];
     for (let j = 0; j < (ext.sources || []).length; j++) {
       const r = results.get(`${i}-${j}`);
