@@ -5,6 +5,7 @@ Tachiyomi/Mihon等系列的中文漫畫書源，現已支持拷貝漫畫/vomic/�
 ## 用法
 **使用倉庫更新地址**
 
+
 `https://raw.githubusercontent.com/LittleSurvival/copymanga-copy20/repo/index.min.json`
 
 若無法成功，則 **下載apk並安裝** ， 請去 [Releases](https://github.com/LittleSurvival/copymanga-copy20/releases) 下載APK。
